@@ -97,6 +97,7 @@ class Reviewer(Mentor):
               f'\nФамилия: = {self.surname}\n'
         return res
 
+# Расчет средней оценки всех студентов
 def middle_rate_student(students):
     stud_list = [{'Python' : [best_student, best_student_2]}]
     sum = 0

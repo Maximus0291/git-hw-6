@@ -110,6 +110,19 @@ def middle_rate_student(students):
         average = round(sum / quantity, 1)
     return average
 
+# Расчет средней оценки всех студентов
+
+def middle_rate_lecture(lectures):
+    sum = 0
+    quantity = 0
+    for lecture in lectures:
+        for val in lecture.stud_grades.values():
+            for grade in val:
+                sum += grade
+                quantity += 1
+        average = round(sum / quantity, 1)
+    return average
+
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python', 'Git']
@@ -120,14 +133,13 @@ best_student_2 = Student('Ruoy_2', 'Eman_2', 'your_gender')
 best_student_2.courses_in_progress += ['Python', 'Git']
 best_student_2.finished_courses += ['Введение в программирование']
 best_student_2.l_course_attached += ['Python']
-
 students = [best_student, best_student_2]
 
 best_lecture = Lecturer('Some', 'Buddy')
 best_lecture.courses_in_progress += ['Python']
-
 best_lecture_2 = Lecturer('Some_3', 'Buddy_3')
 best_lecture_2.courses_in_progress += ['Python']
+lectures = [best_lecture, best_lecture_2]
 
 cool_reviewer = Reviewer('Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
@@ -154,4 +166,5 @@ print(best_lecture_2)
 print(best_student < best_student_2)
 print(best_lecture < best_lecture_2)
 print(middle_rate_student(students))
+print(middle_rate_lecture(lectures))
 

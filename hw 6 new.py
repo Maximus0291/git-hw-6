@@ -108,7 +108,7 @@ def middle_rate_student(students):
                 sum += grade
                 quantity += 1
         average = round(sum / quantity, 1)
-    return average
+    return f'Средняя оценка студентов: =  {average}'
 
 # Расчет средней оценки всех студентов
 
@@ -121,7 +121,7 @@ def middle_rate_lecture(lectures):
                 sum += grade
                 quantity += 1
         average = round(sum / quantity, 1)
-    return average
+    return f'Средняя оценка лекторов: =  {average}'
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')

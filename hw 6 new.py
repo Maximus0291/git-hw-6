@@ -38,9 +38,9 @@ class Student:
     def __str__(self):
         res = f'\nИмя: = {self.name} ' \
               f'\nФамилия: = {self.surname} ' \
-              f'\nСредняя оценка за домашние задания: = {self.middle_rate_s()} ' \
-              f'\nКурсы в процессе изучения: = {self.courses_in_progress}' \
-              f'\nЗавершенные курсы: = {self.finished_courses}'
+              f'\nСредняя оценка за домашние задания: {self.middle_rate_s()} ' \
+              f'\nКурсы в процессе изучения: {self.courses_in_progress}' \
+              f'\nЗавершенные курсы: {self.finished_courses}'
         return res
 
 
@@ -78,7 +78,7 @@ class Lecturer(Mentor):
     def __str__(self):
         res = f'\nИмя: = {self.name} ' \
               f'\nФамилия: = {self.surname} ' \
-              f'\nСредняя оценка за лекции: = {self.middle_rate_l()}\n '
+              f'\nСредняя оценка за лекции: {self.middle_rate_l()}\n '
         return res
 
 
@@ -93,30 +93,38 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
     def __str__(self):
-        res = f'\nИмя: = {self.name} ' \
-              f'\nФамилия: = {self.surname}\n'
+        res = f'\nИмя: {self.name} ' \
+              f'\nФамилия: {self.surname}\n'
         return res
 
 # Расчет средней оценки всех студентов
 course = 'Python'
 
 def middle_rate_student(student_list, course):
-    for student in student_list:
-        if course in student.courses_in_progress:
-            if course in student.grades:
-                average = round(sum(student.grades[course]) / len(student.grades[course]), 2)
-    return f'\nСредняя оценка студентов за курс {course}: {average}'
+  sum_grades = 0
+  len_grades = 0
+  for student in student_list:
+      if course in student.courses_in_progress:
+          if course in student.grades:
+            sum_grades += sum(student.grades[course])
+            len_grades += len(student.grades[course])
+  average = round(sum_grades / len_grades, 2)
+  return f'\nСредняя оценка студентов за курс {course}: {average}'
 
 
 # Расчет средней оценки всех лекторов
-course = 'Python'
+lecture_course = 'Python'
 
-def middle_rate_lecture(lecture_list, course):
-    for lecture in lecture_list:
-        if course in lecture.courses_in_progress:
-            if course in lecture.stud_grades:
-                average = round(sum(lecture.stud_grades[course]) / len(lecture.stud_grades[course]), 2)
-    return f'Средняя оценка лекторов за курс {course}: {average}'
+def middle_rate_lecture(lecture_list, lecture_course):
+  sum_grades = 0
+  len_grades = 0
+  for lecture in lecture_list:
+      if lecture_course in lecture.courses_in_progress:
+          if lecture_course in lecture.stud_grades:
+            sum_grades += sum(lecture.stud_grades[lecture_course])
+            len_grades += len(lecture.stud_grades[lecture_course])
+  average = round(sum_grades / len_grades, 2)
+  return f'Средняя оценка лекторов за курс {lecture_course}: {average}'
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -139,18 +147,18 @@ lecture_list = [best_lecture, best_lecture_2]
 cool_reviewer = Reviewer('Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
 
-cool_reviewer.rate_hw(best_student, 'Python', 3)
+cool_reviewer.rate_hw(best_student, 'Python', 10)
 cool_reviewer.rate_hw(best_student, 'Python', 6)
-cool_reviewer.rate_hw(best_student, 'Python', 7)
-cool_reviewer.rate_hw(best_student_2, 'Python', 9)
-cool_reviewer.rate_hw(best_student_2, 'Python', 3)
-cool_reviewer.rate_hw(best_student_2, 'Python', 9)
+cool_reviewer.rate_hw(best_student, 'Python', 8)
+cool_reviewer.rate_hw(best_student_2, 'Python', 10)
+cool_reviewer.rate_hw(best_student_2, 'Python', 6)
+cool_reviewer.rate_hw(best_student_2, 'Python', 10)
 
 best_student.stud_rate(best_lecture, 'Python', 10)
 best_student.stud_rate(best_lecture, 'Python', 9)
 best_student.stud_rate(best_lecture, 'Python', 8)
-best_student.stud_rate(best_lecture_2, 'Python', 7)
-best_student.stud_rate(best_lecture_2, 'Python', 9)
+best_student.stud_rate(best_lecture_2, 'Python', 10)
+best_student.stud_rate(best_lecture_2, 'Python', 2)
 best_student.stud_rate(best_lecture_2, 'Python', 4)
 
 print(cool_reviewer)
@@ -161,6 +169,6 @@ print(best_lecture_2)
 print(best_student < best_student_2)
 print(best_lecture < best_lecture_2)
 print(middle_rate_student(student_list, course))
-print(middle_rate_lecture(lecture_list, course))
+print(middle_rate_lecture(lecture_list, lecture_course))
 
 

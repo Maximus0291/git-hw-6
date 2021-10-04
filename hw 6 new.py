@@ -98,30 +98,25 @@ class Reviewer(Mentor):
         return res
 
 # Расчет средней оценки всех студентов
+course = 'Python'
 
-def middle_rate_student(students):
-    sum = 0
-    quantity = 0
-    for student in students:
-        for val in student.grades.values():
-            for grade in val:
-                sum += grade
-                quantity += 1
-        average = round(sum / quantity, 1)
-    return f'Средняя оценка студентов: =  {average}'
+def middle_rate_student(student_list, course):
+    for student in student_list:
+        if course in student.courses_in_progress:
+            if course in student.grades:
+                average = round(sum(student.grades[course]) / len(student.grades[course]), 2)
+    return f'\nСредняя оценка студентов за курс {course}: {average}'
 
-# Расчет средней оценки всех студентов
 
-def middle_rate_lecture(lectures):
-    sum = 0
-    quantity = 0
-    for lecture in lectures:
-        for val in lecture.stud_grades.values():
-            for grade in val:
-                sum += grade
-                quantity += 1
-        average = round(sum / quantity, 1)
-    return f'Средняя оценка лекторов: =  {average}'
+# Расчет средней оценки всех лекторов
+course = 'Python'
+
+def middle_rate_lecture(lecture_list, course):
+    for lecture in lecture_list:
+        if course in lecture.courses_in_progress:
+            if course in lecture.stud_grades:
+                average = round(sum(lecture.stud_grades[course]) / len(lecture.stud_grades[course]), 2)
+    return f'Средняя оценка лекторов за курс {course}: {average}'
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -133,30 +128,30 @@ best_student_2 = Student('Ruoy_2', 'Eman_2', 'your_gender')
 best_student_2.courses_in_progress += ['Python', 'Git']
 best_student_2.finished_courses += ['Введение в программирование']
 best_student_2.l_course_attached += ['Python']
-students = [best_student, best_student_2]
+student_list = [best_student, best_student_2]
 
 best_lecture = Lecturer('Some', 'Buddy')
 best_lecture.courses_in_progress += ['Python']
 best_lecture_2 = Lecturer('Some_3', 'Buddy_3')
 best_lecture_2.courses_in_progress += ['Python']
-lectures = [best_lecture, best_lecture_2]
+lecture_list = [best_lecture, best_lecture_2]
 
 cool_reviewer = Reviewer('Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
 
-cool_reviewer.rate_hw(best_student, 'Python', 9)
-cool_reviewer.rate_hw(best_student, 'Python', 10)
-cool_reviewer.rate_hw(best_student, 'Python', 9)
-cool_reviewer.rate_hw(best_student_2, 'Python', 8)
-cool_reviewer.rate_hw(best_student_2, 'Python', 8)
-cool_reviewer.rate_hw(best_student_2, 'Python', 8)
+cool_reviewer.rate_hw(best_student, 'Python', 3)
+cool_reviewer.rate_hw(best_student, 'Python', 6)
+cool_reviewer.rate_hw(best_student, 'Python', 7)
+cool_reviewer.rate_hw(best_student_2, 'Python', 9)
+cool_reviewer.rate_hw(best_student_2, 'Python', 3)
+cool_reviewer.rate_hw(best_student_2, 'Python', 9)
 
-best_student.stud_rate(best_lecture, 'Python', 8)
+best_student.stud_rate(best_lecture, 'Python', 10)
 best_student.stud_rate(best_lecture, 'Python', 9)
 best_student.stud_rate(best_lecture, 'Python', 8)
-best_student.stud_rate(best_lecture_2, 'Python', 10)
-best_student.stud_rate(best_lecture_2, 'Python', 10)
-best_student.stud_rate(best_lecture_2, 'Python', 10)
+best_student.stud_rate(best_lecture_2, 'Python', 7)
+best_student.stud_rate(best_lecture_2, 'Python', 9)
+best_student.stud_rate(best_lecture_2, 'Python', 4)
 
 print(cool_reviewer)
 print(best_student)
@@ -165,6 +160,7 @@ print(best_lecture)
 print(best_lecture_2)
 print(best_student < best_student_2)
 print(best_lecture < best_lecture_2)
-print(middle_rate_student(students))
-print(middle_rate_lecture(lectures))
+print(middle_rate_student(student_list, course))
+print(middle_rate_lecture(lecture_list, course))
+
 
